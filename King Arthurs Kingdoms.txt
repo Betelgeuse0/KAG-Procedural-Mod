@@ -1,0 +1,60 @@
+KING ARTHURS KINGDOMS
+
+gameplay: mostly roleplay. players can choose between 5 roles: king, underling, adventurer, merchant, bandit, or bandit king.
+	Each role as a respective goal to accomplish. Unlike the first KINGDOMS mod, winning is not an option. 
+
+events: goblin rushes, grail appearance (get the grail to stop the onslaught). 
+
+other content: artifacts, lava, monsters, horses, fountain of youth, cursed items, phylactery, 
+		procedural generation, trebutchets / ballistics, kingdom bots, coat of arms, usual kingdoms stuff,
+		imprisonment, slaves, profits from war, new recourses / ores, limited build spaces, biomes, ai, goblin & human ai kingdoms.
+
+roles
+------
+wanderer: The starting class. Can become other classes. 
+king: when a kingdom is established, the person who made the kingdom is the king. Goal is the growth of their kingdom. When a king dies, a new king must be chosen. 
+underling: a servent of the kingdom, under the kings command. Could be an appointed knight, guard, worker, etc
+knight: guards the kingdom from enemies and fights in wars.
+soldier: same role as knight, less powerful. 
+adventurer: Not restricted to a particular kingdom. Can accept quests / work as mercenary. 
+assassin: has skills that allow fast or sneaky assassinations. 
+Merchent: Trades between kingdoms. May often want to hire guards / mercenaries for the danger of bandits or monsters. 
+bandit: Wants to loot and raid. Usually not a problem for established kingdoms but can be problematic for trade routes.
+bandit king: This role is assigned to whichever bandit has the most kills (subject to change). 
+builder: May only build within kingdom. 
+wizard: Uses mana from their own mana pool. Must learn magic from study / books.
+sorcerer / spirit arts: Uses mana in the air around them. Different Areas have different amounts of mana. Since it's a different kind of mana they cast different spells than wizards. 
+summoner: summons minions.
+smith: NPC. Sells equipment and makes equipment provided the player gives them enough materials and coin. 
+
+master roles
+------------
+magic arts user: Must have learned all magic skils from wizard, sorcerer, and summoner. With training they can unlock extremely powerful spells.
+Warlord: Must have learned all skills from knight and soldier.
+
+Note: Some roles get upgrades. Example) Merchant may get camaflauge upgrade for certain enemies. 
+
+
+Other info / content
+---------------------
+monsters more frequently attack player kingdoms then ai kingdoms
+there are 2 different types of merchants: traveling merchants and trade merchants.
+ruins / houses. 
+artifacts may be found around the world, or linked to quests.
+Magic: magic towers (kingdom rush reference), magic items.
+Oil Boilers: Defense mechanism.
+Different crops. 
+Horses, birds, other animals
+Dungeons
+Gods
+Religion (churches / temples)
+Summons / minions
+Abyss: If you dig deep enough you run into the abyss which contains extremely powerful ancient creatures.
+grasshoppers 
+day / night cycle
+player interraction: like runescape, right click a player to have an interraction. This is mainly used for apprenticeships 
+crops: required for populations in kingdoms
+guilds & factions. ex) mercenary faction
+items that reveal invisible entities (spirit world, hidden entrances, hidden items, etc)\
+enemy fortresses
+
