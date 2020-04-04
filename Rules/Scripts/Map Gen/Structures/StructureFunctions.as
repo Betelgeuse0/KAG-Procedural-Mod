@@ -46,6 +46,13 @@ namespace CastleRoom
 		archer_station,
 		secret
 	};
+
+	enum entrancetypes
+	{
+		entrance_none = 0,
+		entrance_left,
+		entrance_right
+	};
 }
 
 class CastleRoom
@@ -463,11 +470,19 @@ void BuildStructures(TerrainManager@ tm)
 	int x = pos.x + ranged(width) - (r_width / 2);	//subtracting r_width since built from corner
 	int y = pos.y - height;
 	Vec2f r_pos(x, y);
-	string entrance = "none";
+	int entrance = CastleRoom::entrance_none;
 
 
 	BuildRect(r_width, r_height, r_pos, castle, castle);
 	BuildRoomsInRect(@rooms, r_pos, r_width, r_height, room_max_width, room_max_height, room_min_width, room_min_height);
+
+	if ((r_pos.x + r_width) >= (pos.x + width)) {
+		BuildEntrance(@rooms, r_pos, r_width, r_height, CastleRoom::entrance_right);
+	}
+
+	if (r_pos.x <= pos.x) {
+		BuildEntrance(@rooms, r_pos, r_width, r_height, CastleRoom::entrance_left);
+	}
 
 	//build rooms to left and right sides
 	int left = x;
@@ -485,7 +500,7 @@ void BuildStructures(TerrainManager@ tm)
 
 		left = x;
 		if (left <= pos.x) {
-			entrance = "left";
+			entrance = CastleRoom::entrance_left;
 		}
 
 		BuildRoomsInRect(@rooms, r_pos, r_width, r_height, room_max_width, room_max_height, room_min_width, room_min_height, entrance);
@@ -509,7 +524,7 @@ void BuildStructures(TerrainManager@ tm)
 
 	}
 
-	entrance = "none";
+	entrance = CastleRoom::entrance_none;
 
 	while (right < (pos.x + width))
 	{
@@ -522,7 +537,7 @@ void BuildStructures(TerrainManager@ tm)
 		
 		right = x + r_width;
 		if (right >= (pos.x + width)) {
-			entrance = "right";
+			entrance = CastleRoom::entrance_right;
 		}
 		
 		BuildRoomsInRect(@rooms, r_pos, r_width, r_height, room_max_width, room_max_height, room_min_width, room_min_height, entrance);
@@ -532,7 +547,7 @@ void BuildStructures(TerrainManager@ tm)
 }
 
 //todo: add cfg vars
-void BuildRoomsInRect(CastleRoom@[]@ rooms, Vec2f pos, int width, int height, int max_width, int max_height, int min_width, int min_height, string entrance = "none")
+void BuildRoomsInRect(CastleRoom@[]@ rooms, Vec2f pos, int width, int height, int max_width, int max_height, int min_width, int min_height, int entrance = 0)
 {
 	//todo: make it easier to change max width and height vars. 
 	//      consider using "steps" between x positions rather than random placement
@@ -561,38 +576,44 @@ void BuildRoomsInRect(CastleRoom@[]@ rooms, Vec2f pos, int width, int height, in
 		}
 	}
 
+	BuildEntrance(@rooms, pos, width, height, entrance);
+}
+
+void BuildEntrance(CastleRoom@[]@ rooms, Vec2f pos, int width, int height, int entrance = 0)
+{
 	//connect the closest room to the entrance
-	if (entrance == "none") return;
+	if (entrance == CastleRoom::entrance_none) return;
 
 	Vec2f entrancePos;
 
-	if (entrance == "left") {
-		entrancePos = Vec2f(pos.x, pos.y - 2);
+	if (entrance  == CastleRoom::entrance_left) {
+		entrancePos = Vec2f(pos.x - 1, pos.y - 2);
 	}
-	else if (entrance == "right") {
+	else if (entrance == CastleRoom::entrance_right) {
 		entrancePos = Vec2f(pos.x + width, pos.y - 2);
 	}
 
-	Vec2f connectPoint;
-	f32 dist = 10000.0f;
+	CastleRoom@ room;
 
 	for (int i = 0; i < rooms.length; i++) 
 	{
 		CastleRoom@ r = rooms[i];
 		const f32 r_dist = getDistance(r.getCenter(), entrancePos);
 
-		if (r_dist < dist)
+		if (room is null || r_dist < getDistance(room.getCenter(), entrancePos))
 		{
-			dist = r_dist;
-			Vec2f p = r.getPosition();
-
-			if (entrance  == "left") {
-				connectPoint = Vec2f(p.x + 5, p.y);
-			}
-			else if (entrance == "right") {
-				connectPoint = Vec2f(p.x + r.getWidth() - 5, p.y);
-			}
+			@room = r;
 		}
+	}
+
+	Vec2f connectPoint;
+	Vec2f p = room.getPosition();
+
+	if (entrance  == CastleRoom::entrance_left) {
+		connectPoint = Vec2f(p.x + 5, p.y);
+	}
+	else if (entrance == CastleRoom::entrance_right) {
+		connectPoint = Vec2f(p.x + room.getWidth() - 5, p.y);
 	}
 
 	BuildPath(connectPoint, entrancePos, 3, CMap::tile_castle_back);
@@ -603,8 +624,6 @@ void ConnectClosestRooms(const CastleRoom@[]@ rooms)
 	if (rooms.empty()) {
 		return;
 	}
-
-	print("rooms.length: " + rooms.length);
 
 	for (int i = 0; i < rooms.length; i++)
 	{

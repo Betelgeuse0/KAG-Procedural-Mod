@@ -4,3 +4,4 @@ tofix:
 kick to spectator glitch - cannot rejoin team even when you type !m
 sandbox commands should not be in-game
 onrestart the time goes to 250 but doesn't decrement
+make biome picking not completely random so there is more variety
